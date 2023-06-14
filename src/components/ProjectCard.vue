@@ -1,14 +1,16 @@
 <script>
+import { store } from '../store';
+
 export default {
   name: 'ProjectCard',
   props: {
     project: Object
   },
-  data() {
-    return {
-      baseUrl: "http://127.0.0.1:8000",
-    }
-  }
+  // data() {
+  //   return {
+  //     baseUrl: "http://127.0.0.1:8000",
+  //   }
+  // }
 }
 </script>
 
