@@ -45,7 +45,7 @@ export default {
 <template>
   <div class="container my-3">
 
-    <section>
+    <section v-if="loading === false">
       <h1>Lista dei progetti</h1>
       <div class="text-end text-primary">
         <span>Progetti trovati: {{ totalProjects }}</span>
@@ -63,7 +63,10 @@ export default {
           <li class="page-item" :class="{'disabled' : currentPage === lastPage}"><a @click.prevent="getProjects(currentPage + 1)" class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
-
+    </section>
+    
+    <section v-else>
+      <h1 class="text-center my-5">Loading...</h1>
     </section>
 
   </div>
