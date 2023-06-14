@@ -48,9 +48,9 @@ export default {
     <section v-if="loading === false">
       <h1>Lista dei progetti</h1>
       <div class="text-end text-primary">
-        <span>Progetti trovati: {{ totalProjects }}</span>
+        <p class="my-3">Progetti totali: {{ totalProjects }}</p>
       </div>
-      <div class="row row-cols-6 g-3">
+      <div class="row row-cols-5 g-3">
         <div class="col" v-for="project in projects" :key="project.id">
           <ProjectCard :project="project" />
         </div>
@@ -64,7 +64,7 @@ export default {
         </ul>
       </nav>
     </section>
-    
+
     <section v-else>
       <h1 class="text-center my-5">Loading...</h1>
     </section>

@@ -37,10 +37,22 @@ export default {
   <div class="card h-100">
     <img class="card-img-top" v-if="project.image" :src="imgSrc" :alt="project.title">
     <div v-else>
-      <span>Image not available</span>
+      <span class="d-flex justify-content-center mt-2 text-secondary">Image not available</span>
     </div>
     <div class="card-body">
-      <h5>{{ project.title }}</h5>
+      <h3>{{ project.title }}</h3>
+      <div>
+        <h4 class="text-danger" v-if="project.type">{{ project.type.name }}</h4>
+        <h4 class="text-danger" v-else>Nessuna tipologia</h4>
+      </div>
+      <div>
+        <h5 class="text-success" v-if="project.technologies.length > 0">
+          {{ project.technologies.map(technology => technology.name).join(', ') }}
+        </h5>
+        <h5 class="text-success" v-else>Nessuna tecnologia</h5>
+      </div>
+      <p>{{ descriptionPreview }}</p>
+
     </div>
   </div>
 </template>
