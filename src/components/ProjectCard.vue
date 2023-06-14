@@ -6,17 +6,17 @@ export default {
   props: {
     project: Object
   },
-  // data() {
-  //   return {
-  //     baseUrl: "http://127.0.0.1:8000",
-  //   }
-  // }
+  data() {
+    return {
+      store
+    }
+  }
 }
 </script>
 
 <template>
   <div class="card">
-    <img class="card-img-top" v-if="project.image" :src="`${baseUrl}/storage/${project.image}`" :alt="project.title">
+    <img class="card-img-top" v-if="project.image" :src="`${store.baseUrl}/storage/${project.image}`" :alt="project.title">
     <div v-else>
       <span>Image not available</span>
     </div>
