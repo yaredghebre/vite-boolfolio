@@ -22,7 +22,6 @@ export default {
   },
   methods: {
     getProjects(pageNumber = 1) {
-      // console.log(pageNumber);
       this.loading = true;
       axios.get(`${store.baseUrl}/api/projects`, {
         params: {
@@ -30,7 +29,7 @@ export default {
         }
       }).then(resp => {
         this.projects = resp.data.results.data;
-        this.currentPage = resp.data.results.curent_page;
+        this.currentPage = resp.data.results.current_page;
         this.lastPage = resp.data.results.last_page;
         this.totalProjects = resp.data.results.total;
       }).finally(() => {
