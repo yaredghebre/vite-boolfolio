@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     getProjects(pageNumber = 1) {
+      // console.log(pageNumber);
       this.loading = true;
       axios.get(`${store.baseUrl}/api/projects`, {
         params: {
@@ -58,9 +59,9 @@ export default {
 
       <nav v-if="lastPage" class="mt-4 d-flex justify-content-end" aria-label="Page navigation example"> 
         <ul class="pagination">
-          <li class="page-item"><a @click.prevent="getProjects(currentPage - 1)" class="page-link" href="#">Previous</a></li>
-          <li class="page-item" v-for="pageNum in lastPage"><a class="page-link" href="#">{{ pageNum }}</a></li>
-          <li class="page-item"><a @click.prevent="getProjects(currentPage + 1)" class="page-link" href="#">Next</a></li>
+          <li class="page-item" :class="{'disabled' : currentPage === 1}"><a @click.prevent="getProjects(currentPage - 1)" class="page-link" href="#">Previous</a></li>
+          <li class="page-item" :class="{'active' : pageNum === currentPage }" v-for="pageNum in lastPage"><a @click.prevent="getProjects(pageNum)" class="page-link" href="#">{{ pageNum }}</a></li>
+          <li class="page-item" :class="{'disabled' : currentPage === lastPage}"><a @click.prevent="getProjects(currentPage + 1)" class="page-link" href="#">Next</a></li>
         </ul>
       </nav>
 
