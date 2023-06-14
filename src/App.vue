@@ -7,31 +7,65 @@ export default {
   data() {
     return {
       projects: [],
+      store,
+      currentPage: 1,
+      lastPage: null,
+      totalProjects: 0,
+      loading: false
     };
+  },
+  components: {
+    ProjectCard
   },
   mounted() {
     this.getProjects();
   },
   methods: {
-    getProjects() {
-      axios.get(`${store.baseUrl}/api/projects`).then(resp => {
-        this.projects = resp.data.results;
+    getProjects(pageNumber = 1) {
+      this.loading = true;
+      axios.get(`${store.baseUrl}/api/projects`, {
+        params: {
+          page: pageNumber
+        }
+      }).then(resp => {
+        this.projects = resp.data.results.data;
+        this.currentPage = resp.data.results.curent_page;
+        this.lastPage = resp.data.results.last_page;
+        this.totalProjects = resp.data.results.total;
+      }).finally(() => {
+        this.loading = false;
       });
     }
   },
-  components: { ProjectCard }
+
 }
 
 </script>
 
 <template>
   <div class="container my-3">
-    <h1>Lista dei progetti</h1>
-    <div class="row row-cols-6 g-3">
-      <div class="col" v-for="project in projects" :key="project.id">
-        <ProjectCard :project="project"/>
+
+    <section>
+      <h1>Lista dei progetti</h1>
+      <div class="text-end text-primary">
+        <span>Progetti trovati: {{ totalProjects }}</span>
       </div>
-    </div>
+      <div class="row row-cols-6 g-3">
+        <div class="col" v-for="project in projects" :key="project.id">
+          <ProjectCard :project="project" />
+        </div>
+      </div>
+
+      <nav v-if="lastPage" class="mt-4 d-flex justify-content-end" aria-label="Page navigation example"> 
+        <ul class="pagination">
+          <li class="page-item"><a @click.prevent="getProjects(currentPage - 1)" class="page-link" href="#">Previous</a></li>
+          <li class="page-item" v-for="pageNum in lastPage"><a class="page-link" href="#">{{ pageNum }}</a></li>
+          <li class="page-item"><a @click.prevent="getProjects(currentPage + 1)" class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+
+    </section>
+
   </div>
 </template>
 
