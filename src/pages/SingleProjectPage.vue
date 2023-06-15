@@ -38,7 +38,7 @@ export default {
 <template>
     <div class="container my-5">
         <div class="card" v-if="project">
-            <img class="card-img-top" v-if="project.image" :src="imgSrc" :alt="project.title">
+            <img class="card-img-top w-25" v-if="project.image" :src="imgSrc" :alt="project.title">
             <div class="card-body" v-else>
                 <h2 class="card-title">{{ project.title }}</h2>
                 <p class="d-flex justify-content-center mt-2 text-secondary">Immagine non disponibile</p>
@@ -49,6 +49,8 @@ export default {
                 <p class="card-text">{{ project.description }}</p>
             </div>
         </div>
+        <router-link :to="{ name: 'projects' }" class="btn btn-success mt-3">Torna ai Progetti</router-link>
+
     </div>
 </template>
 

@@ -54,6 +54,8 @@ export default {
       </div>
       <p>{{ descriptionPreview }}</p>
 
+      <!-- Link per SingleProjectPage -->
+      <router-link :to='{ name:"single-project", params: { slug:project.slug } }' class="btn btn-primary">Dettagli</router-link>
     </div>
   </div>
 </template>
