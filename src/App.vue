@@ -3,6 +3,7 @@ import { store } from './store';
 import axios from 'axios';
 import ProjectCard from './components/ProjectCard.vue';
 import Pagination from './components/Pagination.vue';
+import AppHeader from './components/AppHeader.vue';
 
 export default {
   data() {
@@ -18,7 +19,8 @@ export default {
   components: {
     ProjectCard,
     Pagination,
-  },
+    AppHeader
+},
   mounted() {
     this.getProjects();
   },
@@ -45,6 +47,7 @@ export default {
 </script>
 
 <template>
+  <AppHeader />
   <div class="container my-3">
 
     <section v-if="loading === false">
