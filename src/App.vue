@@ -2,6 +2,7 @@
 import { store } from './store';
 import axios from 'axios';
 import ProjectCard from './components/ProjectCard.vue';
+import Pagination from './components/Pagination.vue';
 
 export default {
   data() {
@@ -15,7 +16,8 @@ export default {
     };
   },
   components: {
-    ProjectCard
+    ProjectCard,
+    Pagination,
   },
   mounted() {
     this.getProjects();
@@ -55,18 +57,11 @@ export default {
           <ProjectCard :project="project" />
         </div>
       </div>
-
-      <nav v-if="lastPage" class="mt-4 d-flex justify-content-end" aria-label="Page navigation example"> 
-        <ul class="pagination">
-          <li class="page-item" :class="{'disabled' : currentPage === 1}"><a @click.prevent="getProjects(currentPage - 1)" class="page-link" href="#">Previous</a></li>
-          <li class="page-item" :class="{'active' : pageNum === currentPage }" v-for="pageNum in lastPage"><a @click.prevent="getProjects(pageNum)" class="page-link" href="#">{{ pageNum }}</a></li>
-          <li class="page-item" :class="{'disabled' : currentPage === lastPage}"><a @click.prevent="getProjects(currentPage + 1)" class="page-link" href="#">Next</a></li>
-        </ul>
-      </nav>
+      <Pagination :currentPage="currentPage" :lastPage="lastPage" @changePage="getProjects" />
     </section>
 
     <section v-else>
-      <h1 class="text-center my-5">Loading...</h1>
+      <h1 class="text-center my-5">Caricamento...</h1>
     </section>
 
   </div>
