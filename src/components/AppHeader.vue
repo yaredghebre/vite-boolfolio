@@ -17,7 +17,7 @@ export default {
                     route: "gallery",
                 },
             ]
-        }
+        };
     }
 }
 </script>
@@ -32,8 +32,8 @@ export default {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item" v-for="link in navLinks">
-                        <router-link :to="{ name: link.route }" class="nav-link active" aria-current="page">{{ link.label }}</router-link>
+                    <li class="nav-item" v-for="link in navLinks" >
+                        <router-link :to="{ name: link.route }" class="nav-link" aria-current="page">{{ link.label }}</router-link>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
@@ -44,3 +44,7 @@ export default {
         </div>
     </nav>
 </template>
+
+<style scoped lang="scss">
+
+</style>
