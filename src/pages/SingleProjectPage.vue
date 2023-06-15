@@ -6,7 +6,8 @@ export default {
     name: 'SingleProjectPage',
     data() {
         return {
-            store
+            store,
+            project: null,
         }
     },
     methods: {
@@ -18,23 +19,36 @@ export default {
             });
         }
     },
+    computed: {
+        imgSrc() {
+            if (!this.project.image) return "";
+            if (this.project.image.startsWith('https://')) {
+                return this.project.image;
+            } else {
+                return `${this.store.baseUrl}/storage/${this.project.image}`;
+            }
+        }
+    },
     mounted() {
         this.getProjects();
     }
-
-    // mounted() {
-    //     const slug = this.$route.params.slug;
-    //     axios.get(`${this.store.baseUrl}/api/projects/${slug}`).then((resp) => {
-    //         console.log(resp);
-    //         this.post = resp.data.results
-    //     })
-    // }
 }
 </script>
 
 <template>
-    <div class="container my-3">
-        <h1>Progetto singolo</h1>
+    <div class="container my-5">
+        <div class="card" v-if="project">
+            <img class="card-img-top" v-if="project.image" :src="imgSrc" :alt="project.title">
+            <div class="card-body" v-else>
+                <h2 class="card-title">{{ project.title }}</h2>
+                <p class="d-flex justify-content-center mt-2 text-secondary">Immagine non disponibile</p>
+                <div class="tag my-4">
+                    <span v-for="(technology, index) in project.technologies">#{{ technology.name }} {{ index ===
+                        project.technologies.length - 1 ? '' : '/ ' }}</span>
+                </div>
+                <p class="card-text">{{ project.description }}</p>
+            </div>
+        </div>
     </div>
 </template>
 

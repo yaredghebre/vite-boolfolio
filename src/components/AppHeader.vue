@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
+    <nav class="navbar navbar-expand-lg bg-primary-subtle p-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">BoolFolio</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
