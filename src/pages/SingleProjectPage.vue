@@ -8,6 +8,7 @@ export default {
         return {
             store,
             project: null,
+            errorMsg: ""
         }
     },
     methods: {
@@ -15,7 +16,11 @@ export default {
             const slug = this.$route.params.slug;
             axios.get(`${this.store.baseUrl}/api/projects/${slug}`).then((resp) => {
                 console.log(resp);
-                this.project = resp.data.results;
+                if (resp.data.success) {
+                    this.project = resp.data.results;
+                } else {
+                    this.errorMsg = resp.data.error;
+                }
             });
         }
     },
@@ -48,6 +53,10 @@ export default {
                 </div>
                 <p class="card-text">{{ project.description }}</p>
             </div>
+        </div>
+
+        <div v-else-if="errorMsg = true">
+            <h2 class="text-danger">PAGINA INESISTENTE :(</h2>
         </div>
         <router-link :to="{ name: 'projects' }" class="btn btn-success mt-3">Torna ai Progetti</router-link>
 
