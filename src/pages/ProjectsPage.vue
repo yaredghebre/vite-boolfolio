@@ -14,7 +14,8 @@ export default {
             lastPage: null,
             totalProjects: 0,
             loading: false,
-            categories: []
+            types: [],
+            selectedType: []
         };
     },
     components: {
@@ -26,13 +27,25 @@ export default {
         this.getTypes();
     },
     methods: {
+        getTypes() {
+            axios.get(`${store.baseUrl}/api/projects`).then((resp) => {
+                console.log(resp);
+                this.categories = resp.data.results;
+            })
+        },
+
         getProjects(pageNumber = 1) {
             this.loading = true;
-            axios.get(`${store.baseUrl}/api/projects`, {
-                params: {
-                    page: pageNumber
-                }
-            }).then(resp => {
+
+            const params = {
+                page: pageNumber,
+            }
+
+            if (this.selectedType !=="All") {
+                params.type_id = this.selectedType;
+            }
+
+            axios.get(`${store.baseUrl}/api/projects`, { params }).then(resp => {
                 this.projects = resp.data.results.data;
                 console.log(this.projects);
                 this.currentPage = resp.data.results.current_page;
@@ -42,12 +55,6 @@ export default {
                 this.loading = false;
             });
         },
-        getTypes() {
-            axios.get(`${store.baseUrl}/api/projects`).then((resp) => {
-                console.log(resp);
-                this.categories = resp.data.results;
-            })
-        }
     },
 }
 </script>
@@ -62,9 +69,9 @@ export default {
             <div class="">
                 <h6>Filtri</h6>
                 <label for="type"></label>
-                <select class="form-select" name="" id="type">
-                    <option value="all">-</option>
-                    <option value=""></option>
+                <select v-model="selectedType" class="form-select" name="" id="type" @change="getProjects()">
+                    <option value="All">-</option>
+                    <option :value="types.id" v-for="type in types" :key="type.id"> {{ type.name }} </option>
                 </select>
             </div>
 
@@ -87,5 +94,4 @@ export default {
     </div>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
