@@ -48,7 +48,9 @@ export default {
       </div>
       <div>
         <h4 class="text-success" v-if="project.technologies.length > 0">
-          <span v-for="item in project.technologies"> {{ item.name }}</span>
+          <span v-for="(item, index) in project.technologies">#{{ item.name }}
+            <span v-if="index !== project.technologies.length - 1">/ </span>
+          </span>
         </h4>
         <h4 class="text-success" v-else>Nessuna tecnologia</h4>
       </div>
