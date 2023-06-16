@@ -47,15 +47,16 @@ export default {
         <h4 class="text-danger" v-else>Nessuna tipologia</h4>
       </div>
       <div>
-        <h5 class="text-success" v-if="project.technologies.length > 0">
-          {{ project.technologies.map(technology => technology.name).join(', ') }}
-        </h5>
-        <h5 class="text-success" v-else>Nessuna tecnologia</h5>
+        <h4 class="text-success" v-if="project.technologies.length > 0">
+          <span v-for="item in project.technologies"> {{ item.name }}</span>
+        </h4>
+        <h4 class="text-success" v-else>Nessuna tecnologia</h4>
       </div>
       <p>{{ descriptionPreview }}</p>
 
       <!-- Link per SingleProjectPage -->
-      <router-link :to='{ name:"single-project", params: { slug:project.slug } }' class="btn btn-primary">Dettagli</router-link>
+      <router-link :to='{ name: "single-project", params: { slug: project.slug } }'
+        class="btn btn-primary">Dettagli</router-link>
     </div>
   </div>
 </template>

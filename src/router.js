@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage.vue";
 import ProjectsPage from "./pages/ProjectsPage.vue";
 // import GalleryPage from "./pages/GalleryPage.vue"; // quando si usa lazy loading, togliere l'import relativo alla pagina
 import SingleProjectPage from "./pages/SingleProjectPage.vue";
+import NotFoundPage from "./pages/NotFoundPage.vue";
 
 
 const router = createRouter({
@@ -28,7 +29,12 @@ const router = createRouter({
             path: "/gallery",      
             name: "gallery",        
             component: () => import("./pages/GalleryPage.vue")
-        }
+        },
+        {
+            path: "/:pathMatch(.*)*",
+            name: "not-found",
+            component: NotFoundPage,
+          },
     ],
 });
 

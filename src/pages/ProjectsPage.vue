@@ -34,6 +34,7 @@ export default {
                 }
             }).then(resp => {
                 this.projects = resp.data.results.data;
+                console.log(this.projects);
                 this.currentPage = resp.data.results.current_page;
                 this.lastPage = resp.data.results.last_page;
                 this.totalProjects = resp.data.results.total;
