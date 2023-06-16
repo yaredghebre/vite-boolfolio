@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "./pages/HomePage.vue";
 import ProjectsPage from "./pages/ProjectsPage.vue";
-import GalleryPage from "./pages/GalleryPage.vue";
+// import GalleryPage from "./pages/GalleryPage.vue"; // quando si usa lazy loading, togliere l'import relativo alla pagina
 import SingleProjectPage from "./pages/SingleProjectPage.vue";
 
 
@@ -24,9 +24,10 @@ const router = createRouter({
             component: SingleProjectPage
         },
         {
+            // esempio for LAZY LOADING
             path: "/gallery",      
             name: "gallery",        
-            component: GalleryPage
+            component: () => import("./pages/GalleryPage.vue")
         }
     ],
 });

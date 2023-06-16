@@ -13,7 +13,8 @@ export default {
             currentPage: 1,
             lastPage: null,
             totalProjects: 0,
-            loading: false
+            loading: false,
+            categories: []
         };
     },
     components: {
@@ -22,6 +23,7 @@ export default {
     },
     mounted() {
         this.getProjects();
+        this.getTypes();
     },
     methods: {
         getProjects(pageNumber = 1) {
@@ -38,6 +40,12 @@ export default {
             }).finally(() => {
                 this.loading = false;
             });
+        },
+        getTypes() {
+            axios.get(`${store.baseUrl}/api/projects`).then((resp) => {
+                console.log(resp);
+                this.categories = resp.data.results;
+            })
         }
     },
 }
@@ -48,6 +56,18 @@ export default {
 
         <section v-if="loading === false">
             <h1>Lista dei progetti</h1>
+
+            <!-- Filters -->
+            <div class="">
+                <h6>Filtri</h6>
+                <label for="type"></label>
+                <select class="form-select" name="" id="type">
+                    <option value="all">-</option>
+                    <option value=""></option>
+                </select>
+            </div>
+
+            <!-- Cards -->
             <div class="text-end text-primary">
                 <p class="my-3">Progetti totali: {{ totalProjects }}</p>
             </div>
